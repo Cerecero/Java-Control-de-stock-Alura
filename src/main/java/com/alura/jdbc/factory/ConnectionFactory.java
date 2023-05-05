@@ -1,4 +1,4 @@
-package com.alura.jdbc;
+package com.alura.jdbc.factory;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

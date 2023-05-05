@@ -1,9 +1,6 @@
 package com.alura.jdbc.controller;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +21,9 @@ public class ProductoController {
 		Statement statement = con.createStatement();
 
 		boolean result = statement.execute("SELECT ID, NOMBRE, DESCRIPCION, CANTIDAD FROM producto");
+
+		ResultSet resultSet = statement.getResultSet();
+
 		System.out.println(result);
 		con.close();
 

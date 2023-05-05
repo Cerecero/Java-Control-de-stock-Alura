@@ -215,7 +215,7 @@ public class ControlDeStockFrame extends JFrame {
             try {
                 // TODO
                 productos.forEach(producto -> modelo.addRow(new Object[] { producto.get("ID"), producto.get("NOMBRE"),
-                        producto.get("DESCRIPCION") }));
+                        producto.get("DESCRIPCION"), producto.get("CANTIDAD") }));
             } catch (Exception e) {
                 throw e;
             }

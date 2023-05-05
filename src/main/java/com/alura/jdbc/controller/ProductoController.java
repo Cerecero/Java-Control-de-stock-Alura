@@ -26,7 +26,7 @@ public class ProductoController {
 
 		ResultSet resultSet = statement.getResultSet();
 		List<Map<String, String>> resultado = new ArrayList<>();
-		while (resultSet.next()); {
+		while(resultSet.next()){
 			Map<String, String> fila = new HashMap<>();
 			fila.put("ID", String.valueOf(resultSet.getInt("ID")));
 			fila.put("NOMBRE", resultSet.getString("NOMBRE"));

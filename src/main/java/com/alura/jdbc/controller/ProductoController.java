@@ -2,7 +2,9 @@ package com.alura.jdbc.controller;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ProductoController {
 
@@ -23,11 +25,22 @@ public class ProductoController {
 		boolean result = statement.execute("SELECT ID, NOMBRE, DESCRIPCION, CANTIDAD FROM producto");
 
 		ResultSet resultSet = statement.getResultSet();
+		List<Map<String, String>> resultado = new ArrayList<>();
+		while (resultSet.next()); {
+			Map<String, String> fila = new HashMap<>();
+			fila.put("ID", String.valueOf(resultSet.getInt("ID")));
+			fila.put("NOMBRE", resultSet.getString("NOMBRE"));
+			fila.put("DESCRIPCION", resultSet.getString("DESCRIPCION"));
+			fila.put("CANTIDAD", String.valueOf(resultSet.getInt("CANTIDAD")));
 
-		System.out.println(result);
+			resultado.add(fila);
+
+		}
+
 		con.close();
 
-		return new ArrayList<>();
+
+		return resultado;
 	}
 
     public void guardar(Object producto) {

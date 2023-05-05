@@ -23,8 +23,8 @@ public class ProductoController {
 				"password");
 		Statement statement = con.createStatement();
 
-		boolean result = statement.execute("SELECT ID, NOMBRE, DESCRIPCION, CANTIDAD FROM PRODUCTO");
-
+		boolean result = statement.execute("SELECT ID, NOMBRE, DESCRIPCION, CANTIDAD FROM producto");
+		System.out.println(result);
 		con.close();
 
 		return new ArrayList<>();

@@ -17,10 +17,7 @@ public class ProductoController {
 	}
 
 	public List<Map<String, String>> listar() throws SQLException {
-		Connection con = DriverManager.getConnection("jdbc:mysql://localhost/control_de_stock?useTimeZone=true&serverTimeZone=UTC",
-				"root",
-				"password");
-		Statement statement = con.createStatement();
+
 
 		boolean result = statement.execute("SELECT ID, NOMBRE, DESCRIPCION, CANTIDAD FROM producto");
 

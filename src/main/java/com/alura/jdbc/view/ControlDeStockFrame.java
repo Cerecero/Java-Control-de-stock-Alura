@@ -55,6 +55,7 @@ public class ControlDeStockFrame extends JFrame {
         modelo.addColumn("Identificador del Producto");
         modelo.addColumn("Nombre del Producto");
         modelo.addColumn("Descripción del Producto");
+        modelo.addColumn("Cantidad");
 
         cargarTabla();
 
@@ -211,17 +212,18 @@ public class ControlDeStockFrame extends JFrame {
     private void cargarTabla() {
         try {
             var productos = this.productoController.listar();
+            try {
+                // TODO
+                productos.forEach(producto -> modelo.addRow(new Object[] { producto.get("ID"), producto.get("NOMBRE"),
+                        producto.get("DESCRIPCION") }));
+            } catch (Exception e) {
+                throw e;
+            }
         } catch (SQLException e){
             throw new RuntimeException(e);
         }
 
-        try {
-            // TODO
-            // productos.forEach(producto -> modelo.addRow(new Object[] { "id", "nombre",
-            // "descripcion" }));
-        } catch (Exception e) {
-            throw e;
-        }
+
     }
 
     private void guardar() {

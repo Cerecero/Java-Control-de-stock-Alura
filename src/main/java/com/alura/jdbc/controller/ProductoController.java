@@ -14,8 +14,13 @@ public class ProductoController {
 		// TODO
 	}
 
-	public void eliminar(Integer id) {
-		// TODO
+	public int eliminar(Integer id) throws SQLException {
+		Connection con = new ConnectionFactory().recuperaConexion();
+		Statement statement = con.createStatement();
+
+		statement.execute("DELETE FROM producto WHERE ID = " + id);
+
+		return statement.getUpdateCount();
 	}
 
 	public List<Map<String, String>> listar() throws SQLException {

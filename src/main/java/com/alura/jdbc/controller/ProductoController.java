@@ -85,6 +85,11 @@ public class ProductoController {
 						+ "VALUES (?,?,?)",
 				Statement.RETURN_GENERATED_KEYS);
 
+		ejecutaRegistro(nombre, descripcion, cantidad, statement);
+
+	}
+
+	private static void ejecutaRegistro(String nombre, String descripcion, Integer cantidad, PreparedStatement statement) throws SQLException {
 		statement.setString(1, nombre);
 		statement.setString(2, descripcion);
 		statement.setInt(3, cantidad);
@@ -96,7 +101,6 @@ public class ProductoController {
 		while (resultSet.next()){
 			resultSet.getInt(1);
 		}
-
 	}
 
 }

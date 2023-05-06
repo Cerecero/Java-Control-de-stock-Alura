@@ -78,20 +78,25 @@ public class ProductoController {
 
 		ConnectionFactory factory = new ConnectionFactory();
 		Connection con = factory.recuperaConexion();
+		con.setAutoCommit(false);
 
 		PreparedStatement statement = con.prepareStatement(
 				"INSERT INTO producto(nombre, descripcion, cantidad)"
 						+ "(nombre, descripcion, cantidad)"
 						+ "VALUES (?,?,?)",
 				Statement.RETURN_GENERATED_KEYS);
-		do {
-			int cantidadParaGuardar = Math.min(cantidad, maximoCantidad);
+		try{
+			do {
+				int cantidadParaGuardar = Math.min(cantidad, maximoCantidad);
 
-			ejecutaRegistro(nombre, descripcion, cantidadParaGuardar, statement);
+				ejecutaRegistro(nombre, descripcion, cantidadParaGuardar, statement);
 
-			cantidad -= maximoCantidad;
-		}while(cantidad > 0);
-
+				cantidad -= maximoCantidad;
+			}while(cantidad > 0);
+			con.commit();
+		} catch (Exception e){
+			con.rollback();
+		}
 		con.close();
 
 	}

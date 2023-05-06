@@ -84,8 +84,15 @@ public class ProductoController {
 						+ "(nombre, descripcion, cantidad)"
 						+ "VALUES (?,?,?)",
 				Statement.RETURN_GENERATED_KEYS);
+		do {
+			int cantidadParaGuardar = Math.min(cantidad, maximoCantidad);
 
-		ejecutaRegistro(nombre, descripcion, cantidad, statement);
+			ejecutaRegistro(nombre, descripcion, cantidadParaGuardar, statement);
+
+			cantidad -= maximoCantidad;
+		}while(cantidad > 0);
+
+		con.close();
 
 	}
 

@@ -12,13 +12,20 @@ public class ProductoController {
 
 	public int modificar(String nombre, String descripcion, Integer cantidad, Integer id) throws SQLException {
 		Connection con = new ConnectionFactory().recuperaConexion();
-		Statement statement = con.createStatement();
 
-		statement.execute("UPDATE producto SET "
-			+ "NOMBRE = '" + nombre + "'"
-			+ ", DESCRIPCION = '"+ descripcion + "'"
-			+ ", CANTIDAD = " + cantidad
-			+ " WHERE ID = " + id);
+		PreparedStatement statement = con.prepareStatement("UPDATE producto SET "
+				+ "NOMBRE = ?"
+				+ ", DESCRIPCION = ?"
+				+ ", CANTIDAD = ?"
+				+ " WHERE ID = ?");
+
+		statement.setString(1, nombre);
+		statement.setString(2, descripcion);
+		statement.setInt(3, cantidad);
+		statement.setInt(4, id);
+
+
+		statement.execute();
 		int updateCount = statement.getUpdateCount();
 
 		con.close();
@@ -31,7 +38,7 @@ public class ProductoController {
 		Connection con = new ConnectionFactory().recuperaConexion();
 		PreparedStatement statement = con.prepareStatement("DELETE FROM producto WHERE ID = ?");
 		statement.setInt(1, id);
-		
+
 		statement.execute();
 
 		return statement.getUpdateCount();

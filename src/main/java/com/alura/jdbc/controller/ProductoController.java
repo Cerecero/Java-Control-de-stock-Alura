@@ -84,13 +84,9 @@ public class ProductoController {
 							+ "VALUES (?,?,?)",
 					Statement.RETURN_GENERATED_KEYS);) {
 				System.out.println("TRY-CATCH");
-				do {
-					int cantidadParaGuardar = Math.min(cantidad, maximoCantidad);
 
-					ejecutaRegistro(producto, statement);
-
-					cantidad -= maximoCantidad;
-				} while (cantidad > 0);
+				ejecutaRegistro(producto, statement);
+				
 				con.commit();
 				System.out.println("COMMIT");
 			} catch (Exception e) {
@@ -109,6 +105,7 @@ public class ProductoController {
 
 		try(ResultSet resultSet = statement.getGeneratedKeys();){
 			while (resultSet.next()){
+				producto.setId(resultSet.getInt(1));
 				resultSet.getInt(1);
 			}
 		}

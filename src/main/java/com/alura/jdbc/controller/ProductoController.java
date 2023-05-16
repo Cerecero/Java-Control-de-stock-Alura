@@ -1,6 +1,7 @@
 package com.alura.jdbc.controller;
 
 import com.alura.jdbc.factory.ConnectionFactory;
+import com.alura.jdbc.modelo.Producto;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -67,11 +68,9 @@ public class ProductoController {
 		}
 	}
 
-    public void guardar(Map<String, String> producto) throws SQLException {
-		String nombre = producto.get("NOMBRE");
-		String descripcion = producto.get("DESCRIPCION");
-		Integer cantidad = Integer.valueOf(producto.get("CANTIDAD"));
-		Integer maximoCantidad = 50;
+    public void guardar(Producto producto) throws SQLException {
+
+
 
 		ConnectionFactory factory = new ConnectionFactory();
 		Connection con = factory.recuperaConexion();
@@ -88,7 +87,7 @@ public class ProductoController {
 				do {
 					int cantidadParaGuardar = Math.min(cantidad, maximoCantidad);
 
-					ejecutaRegistro(nombre, descripcion, cantidadParaGuardar, statement);
+					ejecutaRegistro(producto, statement);
 
 					cantidad -= maximoCantidad;
 				} while (cantidad > 0);
@@ -101,10 +100,10 @@ public class ProductoController {
 		}
 	}
 
-	private static void ejecutaRegistro(String nombre, String descripcion, Integer cantidad, PreparedStatement statement) throws SQLException {
-		statement.setString(1, nombre);
-		statement.setString(2, descripcion);
-		statement.setInt(3, cantidad);
+	private static void ejecutaRegistro(Producto producto, PreparedStatement statement) throws SQLException {
+		statement.setString(1, producto.getNombre());
+		statement.setString(2, producto.getDescripcion());
+		statement.setInt(3, producto.getCantidad());
 
 		statement.execute();
 

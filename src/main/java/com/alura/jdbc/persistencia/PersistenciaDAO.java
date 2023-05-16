@@ -5,9 +5,9 @@ import com.alura.jdbc.modelo.Producto;
 
 import java.sql.*;
 
-public class PersistenciaProducto {
+public class PersistenciaDAO {
     private Connection con;
-    public PersistenciaProducto(Connection con){
+    public PersistenciaDAO(Connection con){
         this.con = con;
     }
 

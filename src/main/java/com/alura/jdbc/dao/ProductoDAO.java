@@ -20,7 +20,7 @@ public class ProductoDAO {
             try (PreparedStatement statement = con.prepareStatement(
                     "INSERT INTO producto" + "(nombre, descripcion, cantidad)"
                             + "VALUES (?,?,?)",
-                    Statement.RETURN_GENERATED_KEYS);) {
+                    Statement.RETURN_GENERATED_KEYS)) {
                 System.out.println("TRY-CATCH");
 
                 ejecutaRegistro(producto, statement);
@@ -39,7 +39,7 @@ public class ProductoDAO {
 
         statement.execute();
 
-        try(ResultSet resultSet = statement.getGeneratedKeys();){
+        try(ResultSet resultSet = statement.getGeneratedKeys()){
             while (resultSet.next()){
                 producto.setId(resultSet.getInt(1));
                 resultSet.getInt(1);
@@ -53,7 +53,7 @@ public class ProductoDAO {
         Connection con = new ConnectionFactory().recuperaConexion();
 
         try(PreparedStatement statement = con.prepareStatement(
-                "SELECT ID, NOMBRE, DESCRIPCION, CANTIDAD FROM producto");) {
+                "SELECT ID, NOMBRE, DESCRIPCION, CANTIDAD FROM producto")) {
             statement.execute();
 
             ResultSet resultSet = statement.getResultSet();

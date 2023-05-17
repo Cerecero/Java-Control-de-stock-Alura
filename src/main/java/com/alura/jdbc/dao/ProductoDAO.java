@@ -27,6 +27,7 @@ public class ProductoDAO {
 
             } catch (SQLException e) {
                 throw new RuntimeException();
+
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

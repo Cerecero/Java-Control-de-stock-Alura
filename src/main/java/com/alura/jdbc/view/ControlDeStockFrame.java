@@ -102,7 +102,7 @@ public class ControlDeStockFrame extends JFrame {
         comboCategoria = new JComboBox<>();
         comboCategoria.addItem(new Categoria(0,"Elige una Categoría"));
 
-        // TODO
+
         var categorias = this.categoriaController.listar();
         categorias.forEach(categoria -> comboCategoria.addItem(categoria));
 
@@ -250,14 +250,13 @@ public class ControlDeStockFrame extends JFrame {
             return;
         }
 
-        // TODO
         var producto = new Producto( textoNombre.getText(),textoDescripcion.getText(),cantidadInt);
 
 
-        var categoria = comboCategoria.getSelectedItem();
+        var categoria = (Categoria) comboCategoria.getSelectedItem();
 
 
-        this.productoController.guardar(producto);
+        this.productoController.guardar(producto, categoria.getId());
 
         JOptionPane.showMessageDialog(this, "Registrado con éxito!");
 

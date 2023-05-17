@@ -18,8 +18,8 @@ public class ProductoDAO {
         try(con) {
 
             try (PreparedStatement statement = con.prepareStatement(
-                    "INSERT INTO producto" + "(nombre, descripcion, cantidad)"
-                            + "VALUES (?,?,?)",
+                    "INSERT INTO producto" + "(nombre, descripcion, cantidad, categoria_id)"
+                            + "VALUES (?,?,?,?)",
                     Statement.RETURN_GENERATED_KEYS)) {
                 System.out.println("TRY-CATCH");
 
@@ -37,6 +37,7 @@ public class ProductoDAO {
         statement.setString(1, producto.getNombre());
         statement.setString(2, producto.getDescripcion());
         statement.setInt(3, producto.getCantidad());
+        statement.setInt(4, producto.getCategoriaId());
 
         statement.execute();
 

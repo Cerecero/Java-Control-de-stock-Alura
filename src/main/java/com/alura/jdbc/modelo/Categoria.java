@@ -13,4 +13,8 @@ public class Categoria {
     public String toString(){
         return this.nombre;
     }
+
+    public Object getId() {
+        return this.id;
+    }
 }

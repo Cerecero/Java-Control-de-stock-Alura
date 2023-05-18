@@ -52,7 +52,6 @@ public class ProductoDAO {
 
     public List<Producto> listar() {
         List<Producto> resultado = new ArrayList<>();
-        Connection con = new ConnectionFactory().recuperaConexion();
 
         try(PreparedStatement statement = con.prepareStatement(
                 "SELECT ID, NOMBRE, DESCRIPCION, CANTIDAD FROM producto")) {
@@ -74,4 +73,29 @@ public class ProductoDAO {
             throw new RuntimeException(e);
         }
     }
+
+    public List<Producto> listar(Object categoriaId) {
+        List<Producto> resultado = new ArrayList<>();
+        var querySelect = "SELECT ID, NOMBRE, DESCRIPCION, CANTIDAD FROM producto WHERE categoria_id = ?";
+        try(PreparedStatement statement = con.prepareStatement(querySelect)) {
+            statement.setInt(1, (Integer) categoriaId);
+            statement.execute();
+
+            ResultSet resultSet = statement.getResultSet();
+            while (resultSet.next()) {
+                Producto fila = new Producto(resultSet.getInt("ID"),
+                        resultSet.getString("NOMBRE"),
+                        resultSet.getString("DESCRIPCION"),
+                        resultSet.getInt("CANTIDAD")
+                );
+
+                resultado.add(fila);
+
+            }
+            return resultado;
+        }catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
+
